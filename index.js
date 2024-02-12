@@ -1,5 +1,5 @@
 const express = require("express");
-require("express-async-error");
+require("express-async-errors");
 require("dotenv").config();
 const errorHandlerMiddleware = require("./middleware/error-handler");
 const notFoundMiddleware = require("./middleware/not-found");
@@ -7,6 +7,8 @@ const authRouter = require("./routes/auth.route");
 const connectDB = require("./db/connect");
 
 const app = express();
+
+app.use(express.json());
 
 const port = process.env.PORT || 3002;
 
