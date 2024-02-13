@@ -29,6 +29,14 @@ const UserSchema = new Schema(
       type: String,
       required: [true, "Please provide password"],
       minlength: [6, "Password character cannot be less than 6"],
+      validate: {
+        validator: function (password) {
+          // Password must contain at least one number, one special character, and one uppercase letter
+          return /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[A-Z]).{6,}$/.test(password);
+        },
+        message:
+          "Password must contain at least one number, one special character, and one uppercase letter",
+      },
     },
 
     retypePassword: {
