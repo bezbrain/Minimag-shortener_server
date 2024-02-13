@@ -32,7 +32,7 @@ const loginUser = async (req, res) => {
   }
 
   // Check if user exists in DB
-  const user = await UserCollection.findOne({ email });
+  const user = await UserCollection.findOne({ $or: [{ email }, { username }] }); // I used the Mongoose 'or' operator ($or)
 
   if (!user) {
     throw new NotFoundError("User does not exist");
