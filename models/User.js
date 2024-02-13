@@ -41,8 +41,8 @@ const UserSchema = new Schema(
 
     retypePassword: {
       type: String,
-      required: [true, "Please provide password"],
-      minlength: [6, "Password character cannot be less than 6"],
+      required: [true, "Please provide retype password"],
+      // minlength: [6, "Password character cannot be less than 6"],
     },
   },
   { timestamps: true }
