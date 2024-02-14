@@ -1,5 +1,6 @@
-const UserCollection = require("../models/User");
+const { revokedToken } = require("../controllers/auth.controller");
 const UnauthenticatedError = require("../errors/unauthenticated");
+const ForbiddenError = require("../errors/forbidden");
 const jwt = require("jsonwebtoken");
 
 const authMiddleware = async (req, res, next) => {
@@ -12,6 +13,13 @@ const authMiddleware = async (req, res, next) => {
   }
 
   const extractToken = authorization.split(" ")[1];
+
+  //   Check if token has been revoked or not
+  if (revokedToken.includes(extractToken)) {
+    throw new ForbiddenError("Forbidden: Token has been revoked");
+  }
+
+  console.log(extractToken);
 
   try {
     const payload = jwt.verify(extractToken, process.env.JWT_SECRET);

@@ -4,6 +4,7 @@ const BadRequestError = require("../errors/bad-request");
 const NotFoundError = require("../errors/not-found");
 const UnauthenticatedError = require("../errors/unauthenticated");
 
+// REGISTER A USER
 const registerUser = async (req, res) => {
   const { body } = req;
   const user = await UserCollection.create(body);
@@ -21,6 +22,7 @@ const registerUser = async (req, res) => {
   });
 };
 
+// LOGIN A USER
 const loginUser = async (req, res) => {
   const {
     body: { username, email, password },
@@ -57,7 +59,26 @@ const loginUser = async (req, res) => {
   });
 };
 
+// LOGOUT A USER
+let revokedToken = [];
+
+const logout = async (req, res) => {
+  const {
+    headers: { authorization },
+  } = req;
+
+  revokedToken.push(authorization);
+  revokedToken = []; // Clear field before allowing another addition of token
+
+  res.status(StatusCodes.OK).json({
+    success: true,
+    message: "Logout successful",
+  });
+};
+
 module.exports = {
   loginUser,
   registerUser,
+  logout,
+  revokedToken,
 };
