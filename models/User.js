@@ -65,9 +65,11 @@ UserSchema.pre("save", async function () {
   this.retypePassword = this.password;
 });
 
-// Generate secret
+// Generate secret (Used this to generate the one time jwt secret)
 function generateJwtSecret(length = 64) {
-  return crypto.randomBytes(length).toString("hex");
+  const jwtSecret = crypto.randomBytes(length).toString("hex");
+  // console.log(jwtSecret);
+  return jwtSecret;
 }
 
 // Sign a user using JWT
@@ -78,7 +80,7 @@ UserSchema.methods.createJWT = function () {
       username: this.username,
       email: this.email,
     },
-    generateJwtSecret(),
+    process.env.JWT_SECRET,
     { expiresIn: process.env.JWT_LIFETIME }
   );
 };
