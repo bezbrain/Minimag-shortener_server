@@ -5,6 +5,6 @@ const { createLink, redirectLink } = require("../controllers/link.controller");
 const authMiddleware = require("../middleware/auth");
 
 router.post("/createUrl", authMiddleware, createLink);
-router.get("/redirectUrl/:shortUrl", redirectLink);
+router.get("/:shortUrl", redirectLink);
 
 module.exports = router;
