@@ -37,7 +37,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/v1", authRouter);
-app.use("/api/v1/", linkRouter);
+app.use("/", linkRouter);
 
 app.use(ErrorHandlerMiddleware);
 app.use(NotFoundMiddleware);
