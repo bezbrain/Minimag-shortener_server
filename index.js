@@ -4,6 +4,7 @@ require("dotenv").config();
 const ErrorHandlerMiddleware = require("./middleware/error-handler");
 const NotFoundMiddleware = require("./middleware/not-found");
 const authRouter = require("./routes/auth.route");
+const linkRouter = require("./routes/link.route");
 const connectDB = require("./db/connect");
 
 // Security
@@ -36,6 +37,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/v1", authRouter);
+app.use("/api/v1/", linkRouter);
 
 app.use(ErrorHandlerMiddleware);
 app.use(NotFoundMiddleware);
