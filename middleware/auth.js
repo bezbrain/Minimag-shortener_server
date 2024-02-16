@@ -19,7 +19,7 @@ const authMiddleware = async (req, res, next) => {
     throw new ForbiddenError("Forbidden: Token has been revoked");
   }
 
-  console.log(extractToken);
+  // console.log(extractToken);
 
   try {
     const payload = jwt.verify(extractToken, process.env.JWT_SECRET);
