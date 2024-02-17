@@ -6,8 +6,9 @@ const {
   redirectCusLink,
 } = require("../controllers/cusLink.controller");
 const authMiddleware = require("../middleware/auth");
+const { redirectLink } = require("../controllers/link.controller");
 
 router.post("/customizeUrl", authMiddleware, customizeUrl);
-router.get("/:customizeUrl", redirectCusLink);
+router.get("/:shortUrl", redirectLink);
 
 module.exports = router;

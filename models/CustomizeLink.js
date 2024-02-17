@@ -6,7 +6,7 @@ const CustomizeLinkSchema = new Schema(
       type: String,
       required: [true, "Please provide original url"],
     },
-    customizeUrl: {
+    shortUrl: {
       type: String,
       unique: [true, "This url already existed. Please generate another one"],
       required: [true, "Please, provide your brand customization name"],
@@ -25,7 +25,7 @@ const CustomizeLinkSchema = new Schema(
 
 // PRE SAVE THE CUSTOM URL
 CustomizeLinkSchema.pre("save", async function (next) {
-  this.fullUrl = `https://minimag.onrender.com/${this.customizeUrl}`;
+  this.fullUrl = `https://minimag.onrender.com/${this.shortUrl}`;
   next();
 });
 
