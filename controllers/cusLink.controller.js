@@ -7,10 +7,7 @@ const customizeUrl = async (req, res) => {
   const {
     body,
     user: { userId },
-    params: { customizeUrl },
   } = req;
-
-  console.log(customizeUrl);
 
   body.createdBy = userId;
 
