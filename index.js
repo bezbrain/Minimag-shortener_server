@@ -5,6 +5,7 @@ const ErrorHandlerMiddleware = require("./middleware/error-handler");
 const NotFoundMiddleware = require("./middleware/not-found");
 const authRouter = require("./routes/auth.route");
 const linkRouter = require("./routes/link.route");
+const cusLinkRouter = require("./routes/cusLink.route");
 const connectDB = require("./db/connect");
 
 // Security
@@ -38,6 +39,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/v1", authRouter);
 app.use("/", linkRouter);
+app.use("/", cusLinkRouter);
 
 app.use(ErrorHandlerMiddleware);
 app.use(NotFoundMiddleware);

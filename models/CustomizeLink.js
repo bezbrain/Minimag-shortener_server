@@ -7,7 +7,7 @@ const LinkSchema = new Schema(
       type: String,
       required: [true, "Please provide original url"],
     },
-    shortUrl: {
+    customizeUrl: {
       type: String,
       unique: [true, "This url already existed. Please generate another one"],
     },
@@ -23,10 +23,9 @@ const LinkSchema = new Schema(
   { timestamps: true }
 );
 
-// PRE GENERATE THE FULLURL
+// PRE SAVE THE CUSTOM URL
 LinkSchema.pre("save", async function (next) {
-  this.shortUrl = nanoId.nanoid(7);
-  this.fullUrl = `https://minimag.onrender.com/${this.shortUrl}`;
+  this.fullUrl = `https://minimag.onrender.com/${this.customizeUrl}`;
   next();
 });
 

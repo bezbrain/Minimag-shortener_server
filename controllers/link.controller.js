@@ -2,6 +2,7 @@ const NotFoundError = require("../errors/not-found");
 const LinkCollection = require("../models/Link");
 const { StatusCodes } = require("http-status-codes");
 
+// CREATE A SHORT URL
 const createLink = async (req, res) => {
   const {
     body,
@@ -18,6 +19,7 @@ const createLink = async (req, res) => {
   });
 };
 
+// REDIRECT SHORT URL TO ORIGINAL WHEN VISITED
 const redirectLink = async (req, res) => {
   const {
     params: { shortUrl },
