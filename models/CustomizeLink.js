@@ -8,7 +8,7 @@ const CustomizeLinkSchema = new Schema(
     },
     shortUrl: {
       type: String,
-      unique: [true, "This url already existed. Please generate another one"],
+      unique: [true, "This name already existed. Please use another one"],
       required: [true, "Please, provide your brand customization name"],
     },
     fullUrl: {
