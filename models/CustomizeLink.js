@@ -9,7 +9,7 @@ const CustomizeLinkSchema = new Schema(
     customizeUrl: {
       type: String,
       unique: [true, "This url already existed. Please generate another one"],
-      required: [true, "Please, provide you customization"],
+      required: [true, "Please, provide your brand customization name"],
     },
     fullUrl: {
       type: String,
