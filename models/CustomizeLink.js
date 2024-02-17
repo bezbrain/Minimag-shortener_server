@@ -1,7 +1,6 @@
 const { Schema, model, Types } = require("mongoose");
-const nanoId = require("nanoid");
 
-const LinkSchema = new Schema(
+const CustomizeLinkSchema = new Schema(
   {
     originalUrl: {
       type: String,
@@ -10,6 +9,7 @@ const LinkSchema = new Schema(
     customizeUrl: {
       type: String,
       unique: [true, "This url already existed. Please generate another one"],
+      required: [true, "Please, provide you customization"],
     },
     fullUrl: {
       type: String,
@@ -24,9 +24,9 @@ const LinkSchema = new Schema(
 );
 
 // PRE SAVE THE CUSTOM URL
-LinkSchema.pre("save", async function (next) {
+CustomizeLinkSchema.pre("save", async function (next) {
   this.fullUrl = `https://minimag.onrender.com/${this.customizeUrl}`;
   next();
 });
 
-module.exports = model("Link", LinkSchema);
+module.exports = model("CusLink", CustomizeLinkSchema);
