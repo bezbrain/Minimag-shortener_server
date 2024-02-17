@@ -1,5 +1,6 @@
 const CusLinkCollection = require("../models/CustomizeLink");
 const { StatusCodes } = require("http-status-codes");
+const NotFoundError = require("../errors/not-found");
 
 // CUSTOMIZE URL
 const customizeUrl = async (req, res) => {
@@ -19,7 +20,7 @@ const customizeUrl = async (req, res) => {
   });
 };
 
-// REDIRECT SHORT URL TO ORIGINAL WHEN VISITED
+// REDIRECT CUSTOMIZED URL TO ORIGINAL WHEN VISITED
 const redirectCusLink = async (req, res) => {
   const {
     params: { customizeUrl },
