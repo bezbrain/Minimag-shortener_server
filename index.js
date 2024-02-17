@@ -38,8 +38,8 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/v1", authRouter);
-app.use("/", cusLinkRouter);
 app.use("/", linkRouter);
+app.use("/", cusLinkRouter);
 
 app.use(ErrorHandlerMiddleware);
 app.use(NotFoundMiddleware);
