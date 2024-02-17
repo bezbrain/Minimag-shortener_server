@@ -27,11 +27,24 @@ const redirectLink = async (req, res) => {
   } = req;
   const url = await LinkCollection.findOne({ shortUrl });
 
-  if (!url) {
-    throw new NotFoundError("Short URL cannot be found");
+  if (shortUrl) {
+    if (!url) {
+      throw new NotFoundError("Short URL cannot be found");
+    }
+
+    return res.redirect(url.originalUrl);
   }
 
-  res.redirect(url.originalUrl);
+  const {
+    params: { customizeUrl },
+  } = req;
+
+  const cusUrl = await CusLinkCollection.findOne({ customizeUrl });
+  if (!cusUrl) {
+    throw new NotFoundError("Customize URL cannot be found");
+  }
+
+  res.redirect(cusUrl.originalUrl);
 };
 
 module.exports = {
