@@ -3,7 +3,7 @@ const router = express.Router();
 
 const {
   customizeUrl,
-  redirectCusLink,
+  //   redirectCusLink,
 } = require("../controllers/cusLink.controller");
 const authMiddleware = require("../middleware/auth");
 const { redirectLink } = require("../controllers/link.controller");
