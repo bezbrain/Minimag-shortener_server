@@ -25,7 +25,7 @@ const redirectLink = async (req, res) => {
   const {
     params: { shortUrl },
   } = req;
-  const url = (await LinkCollection.findOne({ shortUrl })) || null;
+  const url = await LinkCollection.findOne({ shortUrl });
 
   if (shortUrl === url?.shortUrl) {
     if (!url) {

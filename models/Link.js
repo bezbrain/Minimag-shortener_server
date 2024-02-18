@@ -9,7 +9,7 @@ const LinkSchema = new Schema(
     },
     shortUrl: {
       type: String,
-      unique: [true, "This url already existed. Please generate another one"],
+      unique: true,
     },
     fullUrl: {
       type: String,
