@@ -10,6 +10,8 @@ const getAllLinks = async (req, res) => {
   const links = await LinkCollection.find({ createdBy: userId });
   const cusLinks = await CusLinkCollection.find({ createdBy: userId });
 
+  // console.log("I am running");
+
   res.status(StatusCodes.OK).json({
     success: true,
     linkCount: links.length,
