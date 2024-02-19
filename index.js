@@ -6,6 +6,7 @@ const NotFoundMiddleware = require("./middleware/not-found");
 const authRouter = require("./routes/auth.route");
 const linkRouter = require("./routes/link.route");
 const cusLinkRouter = require("./routes/cusLink.route");
+const linkDetailsRouter = require("./routes/linkDetails.route");
 const connectDB = require("./db/connect");
 
 // Security
@@ -13,6 +14,7 @@ const helmet = require("helmet");
 const cors = require("cors");
 const xss = require("xss-clean");
 const rateLimiter = require("express-rate-limit");
+const authMiddleware = require("./middleware/auth");
 
 const app = express();
 
@@ -40,6 +42,7 @@ app.get("/", (req, res) => {
 app.use("/api/v1", authRouter);
 app.use("/", linkRouter);
 app.use("/", cusLinkRouter);
+app.use("/api/v1", authMiddleware, linkDetailsRouter);
 
 app.use(ErrorHandlerMiddleware);
 app.use(NotFoundMiddleware);
