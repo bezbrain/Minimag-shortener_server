@@ -1,8 +1,12 @@
 const express = require("express");
 const router = express.Router();
 
-const { getAllLinks } = require("../controllers/linkDetails.controller");
+const {
+  getAllShortLinks,
+  getAllCustomLinks,
+} = require("../controllers/linkDetails.controller");
 
-router.get("/allLinks", getAllLinks);
+router.get("/allLinks", getAllShortLinks);
+router.get("/allCusLinks", getAllCustomLinks);
 
 module.exports = router;
