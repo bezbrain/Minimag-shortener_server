@@ -42,13 +42,36 @@ const deleteShortLink = async (req, res) => {
     params: { urlID },
   } = req;
 
-  if (!urlID) {
-    throw new BadRequestError(`Link with the ID, ${urlID} cannot be found`);
-  }
   const url = await LinkCollection.findOneAndDelete({
     createdBy: userId,
     _id: urlID,
   });
+
+  if (!url) {
+    throw new BadRequestError(`Link with the ID, ${urlID} cannot be found`);
+  }
+
+  res.status(StatusCodes.OK).json({
+    success: true,
+    message: "Link deleted successfully",
+  });
+};
+
+// DELETE CUSTOM URL
+const deleteCustomLink = async (req, res) => {
+  const {
+    user: { userId },
+    params: { urlID },
+  } = req;
+
+  const url = await CusLinkCollection.findOneAndDelete({
+    createdBy: userId,
+    _id: urlID,
+  });
+
+  if (!url) {
+    throw new BadRequestError(`Link with the ID, ${urlID} cannot be found`);
+  }
 
   res.status(StatusCodes.OK).json({
     success: true,
@@ -60,4 +83,5 @@ module.exports = {
   getAllShortLinks,
   getAllCustomLinks,
   deleteShortLink,
+  deleteCustomLink,
 };
