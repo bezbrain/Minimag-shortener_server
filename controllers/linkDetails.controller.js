@@ -1,6 +1,7 @@
 const LinkCollection = require("../models/Link");
 const CusLinkCollection = require("../models/CustomizeLink");
 const { StatusCodes } = require("http-status-codes");
+const BadRequestError = require("../errors/bad-request");
 
 // GET ALL SHORT LINKS
 const getAllShortLinks = async (req, res) => {
@@ -34,7 +35,29 @@ const getAllCustomLinks = async (req, res) => {
   });
 };
 
+// DELETE SHORT URL
+const deleteShortLink = async (req, res) => {
+  const {
+    user: { userId },
+    params: { urlID },
+  } = req;
+
+  if (!urlID) {
+    throw new BadRequestError(`Link with the ID, ${urlID} cannot be found`);
+  }
+  const url = await LinkCollection.findOneAndDelete({
+    createdBy: userId,
+    _id: urlID,
+  });
+
+  res.status(StatusCodes.OK).json({
+    success: true,
+    message: "Link deleted successfully",
+  });
+};
+
 module.exports = {
   getAllShortLinks,
   getAllCustomLinks,
+  deleteShortLink,
 };

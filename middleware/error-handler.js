@@ -22,6 +22,13 @@ const ErrorHandlerMiddleware = (err, req, res, next) => {
     customError.statusCode = StatusCodes.BAD_REQUEST;
   }
 
+  // Handle Cast error (That is, if an ID is not in the right format)
+  if (err.name === "CastError") {
+    const errorValue = err.value;
+    customError.message = `Link with the ID, ${errorValue} not found`;
+    customError.statusCode = StatusCodes.BAD_REQUEST;
+  }
+
   // res.status(customError.statusCode).json({
   //   success: false,
   //   message: err,
