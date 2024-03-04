@@ -7,6 +7,7 @@ const authRouter = require("./routes/auth.route");
 const linkRouter = require("./routes/link.route");
 const cusLinkRouter = require("./routes/cusLink.route");
 const linkDetailsRouter = require("./routes/linkDetails.route");
+const analyticsRouter = require("./routes/analytics.routes");
 const connectDB = require("./db/connect");
 
 // Security
@@ -43,6 +44,7 @@ app.use("/api/v1", authRouter);
 app.use("/", linkRouter);
 app.use("/", cusLinkRouter);
 app.use("/api/v1", authMiddleware, linkDetailsRouter);
+app.use("/api/v1", authMiddleware, analyticsRouter);
 
 app.use(ErrorHandlerMiddleware);
 app.use(NotFoundMiddleware);
