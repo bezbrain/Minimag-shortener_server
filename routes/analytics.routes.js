@@ -3,6 +3,6 @@ const router = express.Router();
 
 const { firebaseAnalytics } = require("../controllers/analytics.controller");
 
-router.get("analytics", firebaseAnalytics);
+router.get("/analytics", firebaseAnalytics);
 
 module.exports = router;
