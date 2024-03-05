@@ -2,7 +2,6 @@ const express = require("express");
 const admin = require("firebase-admin");
 const axios = require("axios");
 require("dotenv").config();
-const UnauthenticatedError = require("../errors/unauthenticated");
 
 const propertyId = 429069318;
 // Imports the Google Analytics Data API client library.
