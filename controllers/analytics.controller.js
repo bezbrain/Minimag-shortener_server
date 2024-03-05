@@ -1,61 +1,49 @@
 const express = require("express");
 const admin = require("firebase-admin");
-const { google } = require("googleapis");
 const axios = require("axios");
-const { firebase } = require("googleapis/build/src/apis/firebase");
 require("dotenv").config();
 const UnauthenticatedError = require("../errors/unauthenticated");
 
-const app = express();
+const propertyId = 429069318;
+// Imports the Google Analytics Data API client library.
+const { BetaAnalyticsDataClient } = require("@google-analytics/data");
 
-// Retrieve the path to the JSON file from environment variables
-const serviceAccountPath = process.env.SERVICE_ACCOUNT_CREDENTIAL;
+process.env.GOOGLE_APPLICATION_CREDENTIALS;
 
-// Initialize Firebase Admin SDK with service account credentials
-const serviceAccount = require(`../${serviceAccountPath}`);
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-});
-
-// Middleware to handle JSON bodies
-// app.use(express.json());
+// Using a default constructor instructs the client to use the credentials, specified in GOOGLE_APPLICATION_CREDENTIALS environment variable.
+const analyticsDataClient = new BetaAnalyticsDataClient();
 
 const firebaseAnalytics = async (req, res) => {
   try {
-    // const accessToken = await admin
-    //   .auth()
-    //   .createCustomToken("serviceAccountUserId");
-    const userId = req.user.userId;
-
-    if (!userId) {
-      throw new UnauthenticatedError("User does not exist");
-    }
-    const accessToken = await admin.auth().createCustomToken(userId);
-
-    console.log(accessToken);
-
-    const response = await axios.post(
-      "https://analyticsdata.googleapis.com/v1beta/properties/429069318:runReport",
-      // "https://analyticsdata.googleapis.com/v1alpha:runReport",
-      {
-        dateRanges: [{ startDate: "2023-09-01", endDate: "2024-03-05" }],
-        dimensions: [{ name: "country" }],
-        metrics: [{ name: "activeUsers" }],
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`,
+    const [response] = await analyticsDataClient.runReport({
+      property: `properties/${propertyId}`,
+      dateRanges: [
+        {
+          startDate: "2020-03-31",
+          endDate: "today",
         },
-      }
-    );
+      ],
+      dimensions: [
+        {
+          name: "city",
+        },
+      ],
+      metrics: [
+        {
+          name: "activeUsers",
+        },
+      ],
+    });
 
-    console.log(response);
-    res.send("Firebase Analytics");
+    console.log("Report result:");
+    response.rows.forEach((row) => {
+      console.log(row.dimensionValues[0], row.metricValues[0]);
+    });
+
+    res.send("Request successful");
   } catch (error) {
     console.log(error);
-    console.log("error");
-    res.send("Error occurred");
+    res.send("Request failed");
   }
 };
 
