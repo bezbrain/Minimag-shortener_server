@@ -1,7 +1,5 @@
-const express = require("express");
-const admin = require("firebase-admin");
-const axios = require("axios");
 require("dotenv").config();
+const { StatusCodes } = require("http-status-codes");
 
 const propertyId = 429069318;
 // Imports the Google Analytics Data API client library.
@@ -23,26 +21,23 @@ const firebaseAnalytics = async (req, res) => {
         },
       ],
       dimensions: [
+        // {
+        //   name: "eventName",
+        // },
         {
-          name: "eventName",
+          name: "country",
         },
       ],
       metrics: [
         {
-          name: "eventCount",
+          name: "totalUsers",
         },
-        // {
-        //   name: "activeUsers",
-        // },
-        // {
-        //   name: "totalUsers",
-        // },
-        // {
-        //   name: "screenPageViews",
-        // },
-        // {
-        //   name: "userEngagementDuration",
-        // },
+        {
+          name: "screenPageViews",
+        },
+        {
+          name: "userEngagementDuration",
+        },
         // {
         //   name: "eventCount",
         // },
@@ -51,14 +46,43 @@ const firebaseAnalytics = async (req, res) => {
 
     // console.log(response);
 
-    response.rows.forEach((row) => {
-      console.log(row.dimensionValues, row.metricValues);
+    let urlAnalyticsData = {};
+
+    response.rows.forEach((row, i) => {
+      console.log(row.dimensionValues);
+      console.log(row.metricValues);
+      // Extract event name and count
+      const eventName = row.dimensionValues[0].value;
+      const eventCount = parseInt(row.metricValues[0].value);
+      const totalUsers = row.metricValues[0].value;
+      const screenPageViews = row.metricValues[1].value;
+      const userEngagement = row.metricValues[2].value;
+      console.log(totalUsers, screenPageViews, userEngagement);
+
+      // Extract only event name with CustomUrlVisited and shortUrlVisited
+      // if (eventName === "CustomUrlVisited" || eventName === "shortUrlVisited") {
+      // urlAnalyticsData[eventName] = eventCount;
+      // }
+
+      urlAnalyticsData.totalUsers = totalUsers;
+      urlAnalyticsData.screenPageViews = screenPageViews;
+      urlAnalyticsData.userEngagement = userEngagement;
     });
 
-    res.send("Request successful");
+    console.log(urlAnalyticsData);
+
+    res.send("Successful");
+    // res.status(StatusCodes.OK).json({
+    //   success: true,
+    //   message: "Successful",
+    //   urlAnalyticsData,
+    // });
   } catch (error) {
     console.log(error);
-    res.send("Request failed");
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      success: false,
+      message: "Something went wrong. Please try again later!",
+    });
   }
 };
 
