@@ -24,19 +24,35 @@ const firebaseAnalytics = async (req, res) => {
       ],
       dimensions: [
         {
-          name: "city",
+          name: "eventName",
         },
       ],
       metrics: [
         {
-          name: "activeUsers",
+          name: "eventCount",
         },
+        // {
+        //   name: "activeUsers",
+        // },
+        // {
+        //   name: "totalUsers",
+        // },
+        // {
+        //   name: "screenPageViews",
+        // },
+        // {
+        //   name: "userEngagementDuration",
+        // },
+        // {
+        //   name: "eventCount",
+        // },
       ],
     });
 
-    console.log("Report result:");
+    // console.log(response);
+
     response.rows.forEach((row) => {
-      console.log(row.dimensionValues[0], row.metricValues[0]);
+      console.log(row.dimensionValues, row.metricValues);
     });
 
     res.send("Request successful");
