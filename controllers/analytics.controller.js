@@ -51,9 +51,27 @@ const firebaseAnalytics = async (req, res) => {
 
     // console.log(response);
 
+    let urlAnalyticsData = {};
+
     response.rows.forEach((row) => {
-      console.log(row.dimensionValues, row.metricValues);
+      // Extract event name and count
+      const eventName = row.dimensionValues[0].value;
+      const eventCount = parseInt(row.metricValues[0].value);
+
+      // Extract only event name with CustomUrlVisited and shortUrlVisited
+      if (
+        eventName.startsWith("CustomUrlVisited") ||
+        eventName.startsWith("shortUrlVisited")
+      ) {
+        // Exclude extracted event names that include "undefined"
+        if (!eventName.includes("undefined")) {
+          // Add event name and count to urlAnalyticsData object
+          urlAnalyticsData[eventName] = eventCount;
+        }
+      }
     });
+
+    console.log(urlAnalyticsData);
 
     res.send("Request successful");
   } catch (error) {
