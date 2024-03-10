@@ -5,7 +5,7 @@ const propertyId = 429069318;
 // Imports the Google Analytics Data API client library.
 const { BetaAnalyticsDataClient } = require("@google-analytics/data");
 
-process.env.GOOGLE_APPLICATION_CREDENTIALS;
+// process.env.GOOGLE_APPLICATION_CREDENTIALS;
 
 // Using a default constructor instructs the client to use the credentials, specified in GOOGLE_APPLICATION_CREDENTIALS environment variable.
 const analyticsDataClient = new BetaAnalyticsDataClient();
