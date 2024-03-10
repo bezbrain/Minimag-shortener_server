@@ -2,7 +2,7 @@
 
 ## Getting Started
 
-To start working on the project, follow these steps:
+To start working on the project, follow the following steps:
 
 1. Fork repository to your local GitHub account.
 2. Clone the forked repository to your local development environment.
