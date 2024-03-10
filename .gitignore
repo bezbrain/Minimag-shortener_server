@@ -1,4 +1,4 @@
 /node_modules
 .env
 
-/credentials/*.json
+/*76.json
