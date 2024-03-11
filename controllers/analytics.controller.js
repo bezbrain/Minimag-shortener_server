@@ -107,12 +107,12 @@ const customEventsAnalytics = async (req, res) => {
       const eventCount = parseInt(row.metricValues[0].value);
 
       // Extract only event name with CustomUrlVisited and shortUrlVisited
-      if (eventName === "CustomUrlVisited" || eventName === "shortUrlVisited") {
+      if (eventName === "customUrlVisited" || eventName === "shortUrlVisited") {
         urlAnalyticsData[eventName] = eventCount;
       }
     });
 
-    console.log(urlAnalyticsData);
+    // console.log(urlAnalyticsData);
 
     // res.send("Successful");
     res.status(StatusCodes.OK).json({
