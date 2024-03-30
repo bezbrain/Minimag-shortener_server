@@ -1,6 +1,7 @@
 const NotFoundError = require("../errors/not-found");
 const LinkCollection = require("../models/Link");
 const CusLinkCollection = require("../models/CustomizeLink");
+const DemoLinkCollection = require("../models/demo/ShortLink");
 const { StatusCodes } = require("http-status-codes");
 
 // CREATE A SHORT URL
@@ -25,6 +26,17 @@ const redirectLink = async (req, res) => {
   const {
     params: { shortUrl },
   } = req;
+
+  const demoUrl = await DemoLinkCollection.findOne({ shortUrl });
+
+  // Redirect demo short url
+  if (shortUrl === demoUrl?.shortUrl) {
+    if (!demoUrl) {
+      throw new NotFoundError("Short URL cannot be found");
+    }
+    return res.redirect(demoUrl.originalUrl);
+  }
+
   const url = await LinkCollection.findOne({ shortUrl });
 
   // Redirect short url

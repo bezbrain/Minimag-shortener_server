@@ -14,12 +14,6 @@ const createShortUrl = async (req, res) => {
   });
 };
 
-// REDIRECT DEMO SHORT LINK TO DEMO ORIGINAL LINK
-const redirectDemoLink = async (req, res) => {
-  res.send("Redirect");
-};
-
 module.exports = {
   createShortUrl,
-  redirectDemoLink,
 };
