@@ -22,7 +22,7 @@ const ShortLinkSchema = new Schema(
   { timestamps: true }
 );
 
-// PRE GENERATE THE FULL URL
+// PRE GENERATE THE DEMO FULL URL
 ShortLinkSchema.pre("save", async function (next) {
   this.shortUrl = nanoId.nanoid(6);
   this.fullUrl = `https://minimag.onrender.com/${this.shortUrl}`;
