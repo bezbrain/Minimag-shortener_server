@@ -1,6 +1,5 @@
 const CusLinkCollection = require("../models/CustomizeLink");
 const { StatusCodes } = require("http-status-codes");
-const NotFoundError = require("../errors/not-found");
 
 // CUSTOMIZE URL
 const createCustomizeUrl = async (req, res) => {
