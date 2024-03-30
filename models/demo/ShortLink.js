@@ -1,4 +1,4 @@
-const { Schema } = require("mongoose");
+const { Schema, model } = require("mongoose");
 const nanoId = require("nanoid");
 
 const ShortLinkSchema = new Schema(
