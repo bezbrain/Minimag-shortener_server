@@ -29,4 +29,4 @@ ShortLinkSchema.pre("save", async function (next) {
   next();
 });
 
-module.exports = model("ShortLink", ShortLinkSchema);
+module.exports = model("ShortDemoLink", ShortLinkSchema);
