@@ -9,8 +9,6 @@ const BadRequestError = require("../../errors/bad-request");
 const createDemoCustomizeUrl = async (req, res) => {
   const { body } = req;
 
-  // const cusDemo = await CusDemoLinkCollection.create(body);
-
   const shortUrl = await ShortUrlCollection.findOne({
     shortUrl: body.shortUrl,
   });
