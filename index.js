@@ -10,6 +10,7 @@ const linkDetailsRouter = require("./routes/linkDetails.route");
 const analyticsRouter = require("./routes/analytics.routes");
 const demoShortLinkRouter = require("./routes/demo/shortUrl.route");
 const demoCusLinkRouter = require("./routes/demo/cusUrl.route");
+const demoDetailsRouter = require("./routes/demo/demoDetails.route");
 const connectDB = require("./db/connect");
 
 // Security
@@ -42,15 +43,17 @@ app.get("/", (req, res) => {
   res.send("Home page");
 });
 
+// Demo Routes
+app.use("/", demoShortLinkRouter);
+app.use("/", demoCusLinkRouter);
+app.use("/api/v1", demoDetailsRouter);
+
+// Real application routes
 app.use("/api/v1", authRouter);
 app.use("/", linkRouter);
 app.use("/", cusLinkRouter);
 app.use("/api/v1", authMiddleware, linkDetailsRouter);
 app.use("/api/v1", authMiddleware, analyticsRouter);
-
-// Demo Routes
-app.use("/", demoShortLinkRouter);
-app.use("/", demoCusLinkRouter);
 
 app.use(ErrorHandlerMiddleware);
 app.use(NotFoundMiddleware);
