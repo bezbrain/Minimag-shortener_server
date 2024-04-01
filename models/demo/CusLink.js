@@ -24,7 +24,7 @@ const CusLinkSchema = new Schema(
 
 // PRE GENERATE THE DEMO FULL URL
 CusLinkSchema.pre("save", async function (next) {
-  this.fullUrl = `https://minimag.onrender.com/${this.shortUrl}`;
+  this.fullUrl = `https://minimag.onrender.com/T-${this.shortUrl}`;
   next();
 });
 
