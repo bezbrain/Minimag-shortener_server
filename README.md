@@ -58,22 +58,28 @@ To install any of these librabries, just run: `npm install <library name>` eg. T
   - URL shortening
   - URL customizing
 
-  2. Ensure code quality:
+2. Demo application: While in demo mode, user should be to:
 
-     - Write clean, well-structured, and maintainable codes; one of the ways which is, maintaining modular programming.
-     - Follow best practices and adhere to the `Node.js` and `Express.js` coding conventions.
+   - generate short url
+   - customize url
+   - view short and custom urls
 
-  3. Code documentation:
+3. Ensure code quality:
 
-     - Document your code by adding comments and explanatory notes where necessary.
+   - Write clean, well-structured, and maintainable codes; one of the ways which is, maintaining modular programming.
+   - Follow best practices and adhere to the `Node.js` and `Express.js` coding conventions.
 
-  4. Use version control:
+4. Code documentation:
 
-     - Use `Git` for version control. Commit you changes when important changes are made and push them to a branch in your forked repository.
+   - Document your code by adding comments and explanatory notes where necessary.
 
-  5. Create a PR:
-     - Once you have completed the project goals, create a pull request to merge your changes into the main repository.
-     - While at this, provide a clear description of the changes made and any relevent information for the code review.
+5. Use version control:
+
+   - Use `Git` for version control. Commit you changes when important changes are made and push them to a branch in your forked repository.
+
+6. Create a PR:
+   - Once you have completed the project goals, create a pull request to merge your changes into the main repository.
+   - While at this, provide a clear description of the changes made and any relevent information for the code review.
 
 ## Resources
 
