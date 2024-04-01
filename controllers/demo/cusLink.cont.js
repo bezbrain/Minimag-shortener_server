@@ -9,16 +9,18 @@ const BadRequestError = require("../../errors/bad-request");
 const createDemoCustomizeUrl = async (req, res) => {
   const { body } = req;
 
+  const modifiedUrl = `T-${body.shortUrl}`;
+
   const shortUrl = await ShortUrlCollection.findOne({
-    shortUrl: body.shortUrl,
+    shortUrl: modifiedUrl,
   });
 
   const cusUrl = await CusUrlCollection.findOne({
-    shortUrl: body.shortUrl,
+    shortUrl: modifiedUrl,
   });
 
   const shortDemoUrl = await ShortDemoLinkCollection.findOne({
-    shortUrl: body.shortUrl,
+    shortUrl: modifiedUrl,
   });
 
   // confirm that custom demo url intended to be created is not already in the short url collection
