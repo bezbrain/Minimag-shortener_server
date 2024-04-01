@@ -30,8 +30,7 @@ const redirectLink = async (req, res) => {
 
   // Redirect demo short url
   const demoUrl = await DemoLinkCollection.findOne({ shortUrl });
-  const modifyShortUrl = `T-${demoUrl?.shortUrl}`;
-  if (shortUrl === modifyShortUrl) {
+  if (shortUrl === demoUrl?.shortUrl) {
     if (!demoUrl) {
       throw new NotFoundError("Short URL cannot be found");
     }
@@ -40,8 +39,7 @@ const redirectLink = async (req, res) => {
 
   // Redirect demo custom url
   const demoCusUrl = await DemoCusLinkCollection.findOne({ shortUrl });
-  const modifyCusUrl = `T-${demoCusUrl?.shortUrl}`;
-  if (shortUrl === modifyCusUrl) {
+  if (shortUrl === demoCusUrl?.shortUrl) {
     if (!demoCusUrl) {
       throw new NotFoundError("Custom URL cannot be found");
     }
