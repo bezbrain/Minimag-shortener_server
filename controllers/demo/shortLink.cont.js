@@ -11,12 +11,16 @@ const createShortUrl = async (req, res) => {
 
   const shortDemoUrl = await ShortUrlDemoCollection.create(body);
 
-  const shortUrl = await ShortUrlCollection.findOne({ shortUrl: shortDemoUrl });
+  const shortUrl = await ShortUrlCollection.findOne({
+    shortUrl: shortDemoUrl.shortUrl,
+  });
 
-  const cusUrl = await CusUrlCollection.findOne({ shortUrl: shortDemoUrl });
+  const cusUrl = await CusUrlCollection.findOne({
+    shortUrl: shortDemoUrl.shortUrl,
+  });
 
   const cusDemoUrl = await CusDemoLinkCollection.findOne({
-    shortUrl: shortDemoUrl,
+    shortUrl: shortDemoUrl.shortUrl,
   });
 
   // confirm that short demo url intended to be created is not already in the short url collection
