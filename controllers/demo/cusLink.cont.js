@@ -9,18 +9,18 @@ const BadRequestError = require("../../errors/bad-request");
 const createDemoCustomizeUrl = async (req, res) => {
   const { body } = req;
 
-  const cusDemoUrl = await CusDemoLinkCollection.create(body);
+  // const cusDemo = await CusDemoLinkCollection.create(body);
 
   const shortUrl = await ShortUrlCollection.findOne({
-    shortUrl: cusDemoUrl.shortUrl,
+    shortUrl: body.shortUrl,
   });
 
   const cusUrl = await CusUrlCollection.findOne({
-    shortUrl: cusDemoUrl.shortUrl,
+    shortUrl: body.shortUrl,
   });
 
   const shortDemoUrl = await ShortDemoLinkCollection.findOne({
-    shortUrl: cusDemoUrl.shortUrl,
+    shortUrl: body.shortUrl,
   });
 
   // confirm that custom demo url intended to be created is not already in the short url collection
@@ -37,6 +37,8 @@ const createDemoCustomizeUrl = async (req, res) => {
   if (shortDemoUrl) {
     throw new BadRequestError("Custom url already existed");
   }
+
+  const cusDemoUrl = await CusDemoLinkCollection.create(body);
 
   res.status(StatusCodes.CREATED).json({
     success: true,
